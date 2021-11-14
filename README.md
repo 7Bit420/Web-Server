@@ -32,4 +32,44 @@ Main page Directory
         <input type="submit">
       </form>
     ```
-   
+### Editing a user
+  to edit a user make the followin json request to user /user/set
+  
+   ```
+    POST /user/test
+    sessionid: id
+    
+    ---Payload---
+    {
+      "username":"kent"
+      //any other valuse that you want to change 
+    }
+    ---End Payload---
+   ```
+### Managing a user's files
+
+  #### Creating a file 
+  Make a put requsst with the following structure
+  ```
+  PUT /user/fs/ + file name
+  sessionid: id
+  
+  ---Payload---
+  File
+  ---End Payload
+  
+  ```
+  
+   #### Geting a file 
+  Make a get requsst with the following structure
+  ```
+  GET /user/fs/ + file name
+  sessionid: id
+  ```
+  
+  #### Deleting a file 
+  Make a delete requsst with the following structure
+  ```
+  DELETE /user/fs/ + file name
+  sessionid: id
+  ```

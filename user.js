@@ -74,6 +74,10 @@ exports.user = function user(req, res, {
                 })
 
                 fs.writeFileSync('./users/index.json', JSON.stringify(userdb))
+                
+                res.write(
+                    fs.readFileSync(`./pages${new URL(req.headers.refer).pathname}/index.html`)
+                )
 
                 return res.end()
             })

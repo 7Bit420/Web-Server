@@ -19,6 +19,9 @@ Main page Directory
   
 ## Users
 
+### Logging in a user
+  to log in a user make a requset to /login with the header token: "Users JWT token" the server will respond with a sessionid that is valid for 6 hours
+
 ### Creating a user
   to create a user make a POST requset to /user/create and uses the following form structure
   

@@ -25,7 +25,7 @@ Main page Directory
 ### Creating a user
   to create a user make a POST requset to /user/create and uses the following form structure
   
-    ```html
+    ```
     
       <form method="POST" action="/user/create">
         <input type="text" name="username">

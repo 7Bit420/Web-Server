@@ -51,7 +51,7 @@ Main page Directory
     ---End Payload---
    ```
    
-   to edit a user's make the following json request to user /user/set
+   to edit a user's file make the following json request to user /user/set
    
    ```
     POST /user/test

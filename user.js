@@ -1,18 +1,20 @@
 const fs = require('fs')
+const http = require('http')
 const uuid = require('uuid')
 const protcals = require('../protacls.json')
 const userTemp = require('./users/usertemp.json')
 
-exports.user = function user(req, res, {
+exports.user = function user(req = new http.IncomingMessage(), res = new http.ServerResponse(), {
     uploadSessions,
     loginSessinons
 }) {
+    req.url = decodeURI(req.url)
+
     const userdb = JSON.parse(fs.readFileSync('./users/index.json'))
     const cookies = new Map()
     var userSession;
 
     if (!req.url.endsWith('create')) {
-
         if (req.headers["cookie"]) {
             req.headers["cookie"].split(';').forEach(element => {
                 const cookie = element.split('=')
@@ -34,29 +36,47 @@ exports.user = function user(req, res, {
             if (req.method !== "POST") {
                 return res.end()
             }
-            const form = new Map();
 
             req.on('data', (data) => {
+                const form = new Map();
+
                 data.toString('ascii').split('&').forEach(data => {
                     var data = data.split('=');
                     form.set(decodeURIComponent(data[0]), decodeURIComponent(data[1]))
                 })
 
+                var tokens = JSON.parse(fs.readFileSync('./users/tokens.json'))
+
                 if (
-                    (typeof form.get('username') ||
-                        typeof form.get('password') ||
-                        typeof form.get('email'))
-                    !== "string"
+                    (
+                        (
+                            typeof form.get('username') ||
+                            typeof form.get('password') ||
+                            typeof form.get('email') ||
+                            typeof form.get('auth')
+                        )
+                        !== "string"
+                    ) ||
+                    !tokens.includes(form.get('auth'))
                 ) {
                     return res.end()
                 }
+
+                tokens.forEach((val, x) => {
+                    if (val == form.get("auth")) {
+                        tokens.splice(x, 1)
+                    }
+                })
+
+                fs.writeFileSync('./users/tokens.json', JSON.stringify(tokens))
+
                 const id = uuid.v4()
 
                 fs.mkdirSync(`./users/${id}`)
                 fs.mkdirSync(`./users/${id}/files`)
-                fs.mkdirSync(`./users/${id}/posts`)
                 fs.mkdirSync(`./users/${id}/user`)
 
+                fs.writeFileSync(`./users/${id}/bg.png`,'')
                 fs.writeFileSync(`./users/${id}/user.json`, JSON.stringify({
                     "username": form.get('username'),
                     "password": form.get('password'),
@@ -75,6 +95,7 @@ exports.user = function user(req, res, {
 
                 fs.writeFileSync('./users/index.json', JSON.stringify(userdb))
 
+                res.writeHead(301,{ 'Location': '/login' })
                 return res.end()
             })
             break;
@@ -89,42 +110,43 @@ exports.user = function user(req, res, {
             path.splice(0, 1)
             switch (req.method) {
                 case 'PUT':
-                    res.writeHead(201)
-                    req.on('data', (data) => {
-                        fs.appendFileSync(`./users/${userSession.user}/files/${path.join('/')}`, data)
-                    })
-                    req.on('end', () => {
+                    var fpath = `./users/${userSession.user}/files/${path.join('/')}`
+                    if (
+                        req.headers['dir'] == "true" &&
+                        !fs.existsSync(fpath) &&
+                        fs.existsSync(`./users/${userSession.user}/files/${path.splice(0, path.length - 1).join('/')}`)
+                    ) {
+                        fs.mkdirSync(fpath)
+                        res.writeHead(201)
                         res.end()
-                    })
+                    } else if (
+                        fs.existsSync(`./users/${userSession.user}/files/${path.splice(0, path.length - 1).join('/')}`)
+                    ) {
+                        if (fs.existsSync(fpath)) {
+                            fs.writeFileSync(fpath, '')
+                        }
+                        req.on('data', (data) => {
+                            fs.appendFileSync(fpath, data)
+                        })
+                        req.on('end', () => {
+                            res.writeHead(201)
+                            res.end()
+                        })
+                    } else {
+                        res.end()
+                    }
                     break;
                 case 'DELETE':
                     var filePath = `./users/${userSession.user}/files/${path.join('/')}`
-                    if (fs.existsSync(filePath)&&!fs.lstatSync(filePath).isDirectory()) {
+                    if (fs.existsSync(filePath) && !fs.lstatSync(filePath).isDirectory()) {
                         fs.unlinkSync(filePath)
+                        fs.existsSync(filePath) && fs.lstatSync(filePath).isDirectory()
                         res.writeHead(200)
-                    } else if (fs.existsSync(filePath)&&fs.lstatSync(filePath).isDirectory()) {
-                        function delall(path) {
-                            try {
-                                fs.readdirSync(path).forEach(file=>{
-                                    if (fs.lstatSync(path+file).isDirectory()) {
-                                        delall(path+file)
-                                    } else {
-                                        try {
-                                            fs.unlinkSync(path+file)
-                                        } catch (error) {
-                                            console.log(error.message);
-                                        }
-                                    }
-                                })
-                            } catch (error) {
-                                console.log(error.message);
-                            } finally {
-                                try {fs.unlinkSync(path)} catch (error) {
-                                    console.log(error.message)
-                                }
-                            } 
-                        }
-                        delall(filePath)
+                    } else if (fs.existsSync(filePath) && fs.lstatSync(filePath).isDirectory()) {
+                        fs.rmSync(filePath, { recursive: true, force: true })
+                        fs.existsSync(filePath) && fs.lstatSync(filePath).isDirectory()
+                    } else {
+                        fs.existsSync(filePath) && fs.lstatSync(filePath).isDirectory()
                     }
                     res.end()
                     break;
@@ -137,21 +159,21 @@ exports.user = function user(req, res, {
                                 'Content-Type': 'text/plain'
                             })
                             var childFiles = []
-                            fs.readdirSync(filePath).forEach((file,x)=>{
+                            fs.readdirSync(filePath).forEach((file, x) => {
                                 childFiles[x] = {
                                     'fn': file,
-                                    'ft': protcals.find(p=>file.endsWith(p.extension)).extension||''
+                                    'ft': protcals.find(p => file.endsWith(p.extension)).protacal || ''
                                 }
-                                if (fs.lstatSync(filePath+'/'+file).isDirectory()) {
+                                if (fs.lstatSync(filePath + '/' + file).isDirectory()) {
                                     childFiles[x].ft = 'directory'
                                 }
                             })
                             res.write(JSON.stringify({
                                 "childFiles": childFiles
                             }))
-                        } else {
+                        } else if (fs.existsSync) {
                             res.writeHead(200, {
-                                'isDirectoty':false,
+                                'isDirectoty': false,
                                 'Content-Type': (
                                     protcals.find(protcal => path.join('/').endsWith(protcal.extension))
                                     || { extension: 'text/plain' }
@@ -168,17 +190,27 @@ exports.user = function user(req, res, {
             }
             break;
         case 'set':
+            path.splice(0,1)
             if (req.method != 'POST') return res.end()
-            req.on('data', (d) => {
-                var data = JSON.parse(d), user = userdb.find(user => user.id = userSession.user)
-                Object.getOwnPropertyNames(data).forEach((v) => {
-                    if (typeof data[v] == userTemp[v]) {
-                        user[v] = data[v]
-                        console.log(v)
-                    }
+            if (
+                req.headers["type"]=="file" &&
+                fs.existsSync(`./users/${userSession.user}/user/${path.join('/')}`)
+                ) {
+                fs.writeFileSync(`./users/${userSession.user}/user/${path.join('/')}`,'')
+                req.on('data',(data)=>{
+                    fs.appendFileSync(`./users/${userSession.user}/user/${path.join('/')}`,data)
                 })
-                fs.writeFileSync(`./users/${userSession.user}/user.json`, JSON.stringify(user))
-            })
+            } else if (req.headers["type"]=="string") {
+                req.on('data', (d) => {
+                    var data = JSON.parse(d), user = userdb.find(user => user.id = userSession.user)
+                    Object.getOwnPropertyNames(data).forEach((v) => {
+                        if (typeof data[v] == userTemp[v]) {
+                            user[v] = data[v]
+                        }
+                    })
+                    fs.writeFileSync(`./users/${userSession.user}/user.json`, JSON.stringify(user))
+                })
+            }
             req.on('end', () => {
                 res.end()
             })

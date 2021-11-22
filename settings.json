@@ -1,4 +1,6 @@
 {
     "port": 5000,
-    "domain": "localhost"
+    "redirects": [
+        { "path": "/", "location":"/home" }
+    ]
 }

@@ -5,6 +5,7 @@ function login(req, res, {
     uploadSessions,
     loginSessinons
 }) {
+    req.url = decodeURI(req.url)
 
     if (
         typeof req.headers.token == "undefined"

@@ -94,6 +94,10 @@ exports.user = function user(req = new http.IncomingMessage(), res = new http.Se
                 })
 
                 fs.writeFileSync('./users/index.json', JSON.stringify(userdb))
+                
+                res.write(
+                    fs.readFileSync(`./pages${new URL(req.headers.refer).pathname}/index.html`)
+                )
 
                 res.writeHead(301,{ 'Location': '/login' })
                 return res.end()

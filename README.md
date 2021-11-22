@@ -25,16 +25,16 @@ Main page Directory
 ### Creating a user
   to create a user make a POST requset to /user/create and uses the following form structure
   
-      ```html
-      <form method="POST" action="/user/create">
-        <input type="text" name="username">
-        <input type="password" name="password">
-        <!--
-          Any other atrubtes that have been defined in the "usertemp.json" file
-        -->
-        <input type="submit">
-      </form>
-      ```
+```html
+  <form method="POST" action="/user/create">
+    <input type="text" name="username">
+    <input type="password" name="password">
+    <!--
+      Any other atrubtes that have been defined in the "usertemp.json" file
+    -->
+    <input type="submit">
+    </form>
+```
 ### Editing a user
   to edit a user's attrubute make the following json request to user /user/set
   

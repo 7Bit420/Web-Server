@@ -26,6 +26,7 @@ Main page Directory
   to create a user make a POST requset to /user/create and uses the following form structure
   
     ```html
+    
       <form method="POST" action="/user/create">
         <input type="text" name="username">
         <input type="password" name="password">
@@ -34,6 +35,7 @@ Main page Directory
         -->
         <input type="submit">
       </form>
+      
     ```
 ### Editing a user
   to edit a user make the followin json request to user /user/set

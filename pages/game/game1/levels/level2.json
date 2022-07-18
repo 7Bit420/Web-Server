@@ -1,0 +1,131 @@
+{
+    "$schema": "http://localhost/schema/gameLevel.json",
+    "name": "test",
+    "map": {
+        "height": 10,
+        "width": 10,
+        "scale": 64,
+        "tiles": [
+            [
+                { "asset": "./assets/brick/Brick1.png" },
+                { "asset": "./assets/brick/Brick2.png" },
+                { "asset": "./assets/brick/Brick3.png" },
+                { "asset": "./assets/brick/Brick4.png" },
+                { "asset": "./assets/brick/Brick5.png" },
+                { "asset": "./assets/brick/Brick6.png", "solid": true },
+                { "asset": "./assets/brick/Brick7.png", "solid": true },
+                { "asset": "./assets/brick/Brick8.png" },
+                { "asset": "./assets/brick/Brick9.png" },
+                { "asset": "./assets/brick/Brick10.png" }
+            ],
+            [
+                { "asset": "./assets/brick/Brick10.png" },
+                { "asset": "./assets/brick/Brick1.png" },
+                { "asset": "./assets/brick/Brick2.png" },
+                { "asset": "./assets/brick/Brick3.png" },
+                { "asset": "./assets/brick/Brick4.png" },
+                { "asset": "./assets/brick/Brick5.png", "solid": true },
+                { "asset": "./assets/brick/Brick6.png", "solid": true },
+                { "asset": "./assets/brick/Brick7.png" },
+                { "asset": "./assets/brick/Brick8.png" },
+                { "asset": "./assets/brick/Brick9.png" }
+            ],
+            [
+                { "asset": "./assets/brick/Brick9.png" },
+                { "asset": "./assets/brick/Brick10.png" },
+                { "asset": "./assets/brick/Brick1.png" },
+                { "asset": "./assets/brick/Brick2.png" },
+                { "asset": "./assets/brick/Brick3.png" },
+                { "asset": "./assets/brick/Brick4.png" },
+                { "asset": "./assets/brick/Brick5.png" },
+                { "asset": "./assets/brick/Brick6.png" },
+                { "asset": "./assets/brick/Brick7.png" },
+                { "asset": "./assets/brick/Brick8.png" }
+            ],
+            [
+                { "asset": "./assets/brick/Brick8.png" },
+                { "asset": "./assets/brick/Brick9.png" },
+                { "asset": "./assets/brick/Brick10.png" },
+                { "asset": "./assets/brick/Brick1.png" },
+                { "asset": "./assets/brick/Brick2.png" },
+                { "asset": "./assets/brick/Brick3.png" },
+                { "asset": "./assets/brick/Brick4.png" },
+                { "asset": "./assets/brick/Brick5.png" },
+                { "asset": "./assets/brick/Brick6.png" },
+                { "asset": "./assets/brick/Brick7.png" }
+            ],
+            [
+                { "asset": "./assets/brick/Brick7.png" },
+                { "asset": "./assets/brick/Brick8.png" },
+                { "asset": "./assets/brick/Brick9.png" },
+                { "asset": "./assets/brick/Brick10.png" },
+                { "asset": "./assets/brick/Brick1.png" },
+                { "asset": "./assets/brick/Brick2.png" },
+                { "asset": "./assets/brick/Brick3.png" },
+                { "asset": "./assets/brick/Brick4.png" },
+                { "asset": "./assets/brick/Brick5.png" },
+                { "asset": "./assets/brick/Brick6.png" }
+            ],
+            [
+                { "asset": "./assets/brick/Brick6.png" },
+                { "asset": "./assets/brick/Brick7.png" },
+                { "asset": "./assets/brick/Brick8.png" },
+                { "asset": "./assets/brick/Brick9.png" },
+                { "asset": "./assets/brick/Brick10.png" },
+                { "asset": "./assets/brick/Brick1.png" },
+                { "asset": "./assets/brick/Brick2.png" },
+                { "asset": "./assets/brick/Brick3.png" },
+                { "asset": "./assets/brick/Brick4.png" },
+                { "asset": "./assets/brick/Brick5.png" }
+            ],
+            [
+                { "asset": "./assets/brick/Brick5.png" },
+                { "asset": "./assets/brick/Brick6.png" },
+                { "asset": "./assets/brick/Brick7.png" },
+                { "asset": "./assets/brick/Brick8.png" },
+                { "asset": "./assets/brick/Brick9.png" },
+                { "asset": "./assets/brick/Brick10.png" },
+                { "asset": "./assets/brick/Brick1.png" },
+                { "asset": "./assets/brick/Brick2.png" },
+                { "asset": "./assets/brick/Brick3.png" },
+                { "asset": "./assets/brick/Brick4.png" }
+            ],
+            [
+                { "asset": "./assets/brick/Brick4.png" },
+                { "asset": "./assets/brick/Brick5.png" },
+                { "asset": "./assets/brick/Brick6.png" },
+                { "asset": "./assets/brick/Brick7.png" },
+                { "asset": "./assets/brick/Brick8.png" },
+                { "asset": "./assets/brick/Brick9.png" },
+                { "asset": "./assets/brick/Brick10.png" },
+                { "asset": "./assets/brick/Brick1.png" },
+                { "asset": "./assets/brick/Brick2.png" },
+                { "asset": "./assets/brick/Brick3.png" }
+            ],
+            [
+                { "asset": "./assets/brick/Brick3.png" },
+                { "asset": "./assets/brick/Brick4.png" },
+                { "asset": "./assets/brick/Brick5.png" },
+                { "asset": "./assets/brick/Brick6.png" },
+                { "asset": "./assets/brick/Brick7.png" },
+                { "asset": "./assets/brick/Brick8.png" },
+                { "asset": "./assets/brick/Brick9.png" },
+                { "asset": "./assets/brick/Brick10.png" },
+                { "asset": "./assets/brick/Brick1.png" },
+                { "asset": "./assets/brick/Brick2.png" }
+            ],
+            [
+                { "asset": "./assets/brick/Brick2.png" },
+                { "asset": "./assets/brick/Brick3.png" },
+                { "asset": "./assets/brick/Brick4.png" },
+                { "asset": "./assets/brick/Brick5.png" },
+                { "asset": "./assets/brick/Brick6.png" },
+                { "asset": "./assets/brick/Brick7.png" },
+                { "asset": "./assets/brick/Brick8.png" },
+                { "asset": "./assets/brick/Brick9.png" },
+                { "asset": "./assets/brick/Brick10.png" },
+                { "asset": "./assets/brick/Brick1.png" }
+            ]
+        ]
+    }
+}

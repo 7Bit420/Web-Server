@@ -1,0 +1,130 @@
+{
+    "name": "level1",
+    "map": {
+        "width": 10,
+        "height": 10,
+        "scale": 16,
+        "urls": [
+            [
+                {
+                    "asset": "./assets/dirt-tile.png"
+                },
+                {
+                    "asset": "./assets/dirt-tile.png"
+                },
+                {
+                    "asset": "./assets/dirt-tile.png"
+                },
+                {
+                    "asset": "./assets/dirt-tile.png"
+                },
+                {
+                    "asset": "./assets/dirt-tile.png"
+                },
+                {
+                    "asset": "./assets/dirt-tile.png"
+                }
+            ],
+            [
+                {
+                    "asset": "./assets/trees.png"
+                },
+                {
+                    "asset": "./assets/dirt-tile.png"
+                },
+                {
+                    "asset": "./assets/dirt-tile.png"
+                },
+                {
+                    "asset": "./assets/dirt-tile.png"
+                },
+                {
+                    "asset": "./assets/dirt-tile.png"
+                },
+                {
+                    "asset": "./assets/dirt-tile.png"
+                }
+            ],
+            [
+                {
+                    "asset": "./assets/dirt-tile.png"
+                },
+                {
+                    "asset": "./assets/dirt-tile.png"
+                },
+                {
+                    "asset": "./assets/dirt-tile.png"
+                },
+                {
+                    "asset": "./assets/trees.png"
+                },
+                {
+                    "asset": "./assets/trees.png"
+                },
+                {
+                    "asset": "./assets/dirt-tile.png"
+                }
+            ],
+            [
+                {
+                    "asset": "./assets/dirt-tile.png"
+                },
+                {
+                    "asset": "./assets/dirt-tile.png"
+                },
+                {
+                    "asset": "./assets/dirt-tile.png"
+                },
+                {
+                    "asset": "./assets/dirt-tile.png"
+                },
+                {
+                    "asset": "./assets/dirt-tile.png"
+                },
+                {
+                    "asset": "./assets/dirt-tile.png"
+                }
+            ],
+            [
+                {
+                    "asset": "./assets/dirt-tile.png"
+                },
+                {
+                    "asset": "./assets/dirt-tile.png"
+                },
+                {
+                    "asset": "./assets/trees.png"
+                },
+                {
+                    "asset": "./assets/dirt-tile.png"
+                },
+                {
+                    "asset": "./assets/dirt-tile.png"
+                },
+                {
+                    "asset": "./assets/dirt-tile.png"
+                }
+            ],
+            [
+                {
+                    "asset": "./assets/dirt-tile.png"
+                },
+                {
+                    "asset": "./assets/dirt-tile.png"
+                },
+                {
+                    "asset": "./assets/dirt-tile.png"
+                },
+                {
+                    "asset": "./assets/dirt-tile.png"
+                },
+                {
+                    "asset": "./assets/dirt-tile.png"
+                },
+                {
+                    "asset": "./assets/trees.png"
+                }
+            ]
+        ]
+    }
+}

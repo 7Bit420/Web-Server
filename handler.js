@@ -1,18 +1,29 @@
 const process = require('process'),
     http = require('http'),
+    https = require('https'),
+    fs = require('fs'),
+    crypto = require('crypto'),
     uploadSessions = new Map(),
     loginSessinons = new Map(),
-    settings = require('./settings.json')
+    settings = require(__dirname + '/settings.json')
 
-process.on('message', (message) => {
-
+process.stdin.on('data', (message) => {
+    process.exit()
 })
 
 const server = http.createServer(mypage)
 
 server.listen(
-    settings.port,
-    settings.domain
+    settings.port
+)
+
+const httpsServer = https.createServer({
+    key: fs.readFileSync(__dirname + '/config/certs/CODEX CA.pem'),
+    cert: fs.readFileSync(__dirname + '/config/certs/CODEX CA.pem'),
+}, mypage)
+
+httpsServer.listen(
+    443
 )
 
 function mypage(req, res) {
@@ -21,25 +32,25 @@ function mypage(req, res) {
     switch (method) {
         case "login":
             if (req.method == "GET") {
-                require('./genral').general(req, res, {
+                require(__dirname + '/handlers/genral').general(req, res, {
                     uploadSessions: uploadSessions,
                     loginSessinons: loginSessinons
                 })
             } else {
-                require('./login').login(req, res, {
+                require(__dirname + '/handlers/login').login(req, res, {
                     uploadSessions: uploadSessions,
                     loginSessinons: loginSessinons
                 })
             }
             break;
         case "user":
-            require('./user').user(req, res, {
+            require(__dirname + '/handlers/user').user(req, res, {
                 uploadSessions: uploadSessions,
                 loginSessinons: loginSessinons
             })
             break;
         default:
-            require('./genral').general(req, res, {
+            require(__dirname + '/handlers/genral').general(req, res, {
                 uploadSessions: uploadSessions,
                 loginSessinons: loginSessinons
             })

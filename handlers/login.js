@@ -1,5 +1,8 @@
 const uuid = require("uuid");
 const fs = require("fs");
+const path = require('path')
+
+const rootPath = path.parse(__dirname).dir
 
 function login(req, res, {
     uploadSessions,
@@ -14,7 +17,7 @@ function login(req, res, {
         return res.end()
     }
 
-    const userdb = JSON.parse(fs.readFileSync('./users/index.json'))
+    const userdb = JSON.parse(fs.readFileSync(rootPath + '/users/index.json'))
 
     var encToken = req.headers.token.split('.')
     const token = {
@@ -46,7 +49,7 @@ function login(req, res, {
 
     if (user) {
         if (loginSessinons.has(user.id)) {
-            res.write('<h1>409 Conflict</h1><br>Client Already Logged In')
+            res.write('<h1>409 Conflict../h1><br>Client Already Logged In')
             res.writeHead(409)
             res.end()
         } else {

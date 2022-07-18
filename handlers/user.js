@@ -2,7 +2,10 @@ const fs = require('fs')
 const http = require('http')
 const uuid = require('uuid')
 const protcals = require('../protacls.json')
-const userTemp = require('./users/usertemp.json')
+const userTemp = require('../users/usertemp.json')
+const path = require('path')
+
+const rootPath = path.parse(__dirname).dir
 
 exports.user = function user(req = new http.IncomingMessage(), res = new http.ServerResponse(), {
     uploadSessions,
@@ -10,7 +13,7 @@ exports.user = function user(req = new http.IncomingMessage(), res = new http.Se
 }) {
     req.url = decodeURI(req.url)
 
-    const userdb = JSON.parse(fs.readFileSync('./users/index.json'))
+    const userdb = JSON.parse(fs.readFileSync(rootPath + '/users/index.json'))
     const cookies = new Map()
     var userSession;
 
@@ -45,7 +48,7 @@ exports.user = function user(req = new http.IncomingMessage(), res = new http.Se
                     form.set(decodeURIComponent(data[0]), decodeURIComponent(data[1]))
                 })
 
-                var tokens = JSON.parse(fs.readFileSync('./users/tokens.json'))
+                var tokens = JSON.parse(fs.readFileSync(rootPath + '/users/tokens.json'))
 
                 if (
                     (
@@ -68,16 +71,16 @@ exports.user = function user(req = new http.IncomingMessage(), res = new http.Se
                     }
                 })
 
-                fs.writeFileSync('./users/tokens.json', JSON.stringify(tokens))
+                fs.writeFileSync('../users/tokens.json', JSON.stringify(tokens))
 
                 const id = uuid.v4()
 
-                fs.mkdirSync(`./users/${id}`)
-                fs.mkdirSync(`./users/${id}/files`)
-                fs.mkdirSync(`./users/${id}/user`)
+                fs.mkdirSync(`${rootPath}/users/${id}`)
+                fs.mkdirSync(`${rootPath}/users/${id}/files`)
+                fs.mkdirSync(`${rootPath}/users/${id}/user`)
 
-                fs.writeFileSync(`./users/${id}/bg.png`,'')
-                fs.writeFileSync(`./users/${id}/user.json`, JSON.stringify({
+                fs.writeFileSync(`${rootPath}/users/${id}/bg.png`, '')
+                fs.writeFileSync(`${rootPath}/users/${id}/user.json`, JSON.stringify({
                     "username": form.get('username'),
                     "password": form.get('password'),
                     "email": form.get('email'),
@@ -85,7 +88,7 @@ exports.user = function user(req = new http.IncomingMessage(), res = new http.Se
                     "id": id
                 }))
 
-                const userdb = JSON.parse(fs.readFileSync('./users/index.json'))
+                const userdb = JSON.parse(fs.readFileSync(rootPath + '/users/index.json'))
 
                 userdb.push({
                     "username": form.get('username'),
@@ -93,20 +96,20 @@ exports.user = function user(req = new http.IncomingMessage(), res = new http.Se
                     "id": id
                 })
 
-                fs.writeFileSync('./users/index.json', JSON.stringify(userdb))
-                
+                fs.writeFileSync('../users/index.json', JSON.stringify(userdb))
+
                 res.write(
-                    fs.readFileSync(`./pages${new URL(req.headers.refer).pathname}/index.html`)
+                    fs.readFileSync(`${rootPath}/pages${new URL(req.headers.refer).pathname}/index.html`)
                 )
 
-                res.writeHead(301,{ 'Location': '/login' })
+                res.writeHead(301, { 'Location': '/login' })
                 return res.end()
             })
             break;
         case 'get':
             path.splice(0, 1)
-            if (fs.existsSync(`./users/${userSession.user}/user/${path.join('/')}`)) {
-                res.write(fs.readFileSync(`./users/${userSession.user}/user/${path.join('/')}`))
+            if (fs.existsSync(`${rootPath}/users/${userSession.user}/user/${path.join('/')}`)) {
+                res.write(fs.readFileSync(`${rootPath}/users/${userSession.user}/user/${path.join('/')}`))
             }
             res.end()
             break;
@@ -114,17 +117,17 @@ exports.user = function user(req = new http.IncomingMessage(), res = new http.Se
             path.splice(0, 1)
             switch (req.method) {
                 case 'PUT':
-                    var fpath = `./users/${userSession.user}/files/${path.join('/')}`
+                    var fpath = `${rootPath}/users/${userSession.user}/files/${path.join('/')}`
                     if (
                         req.headers['dir'] == "true" &&
                         !fs.existsSync(fpath) &&
-                        fs.existsSync(`./users/${userSession.user}/files/${path.splice(0, path.length - 1).join('/')}`)
+                        fs.existsSync(`${rootPath}/users/${userSession.user}/files/${path.splice(0, path.length - 1).join('/')}`)
                     ) {
                         fs.mkdirSync(fpath)
                         res.writeHead(201)
                         res.end()
                     } else if (
-                        fs.existsSync(`./users/${userSession.user}/files/${path.splice(0, path.length - 1).join('/')}`)
+                        fs.existsSync(`${rootPath}/users/${userSession.user}/files/${path.splice(0, path.length - 1).join('/')}`)
                     ) {
                         if (fs.existsSync(fpath)) {
                             fs.writeFileSync(fpath, '')
@@ -141,7 +144,7 @@ exports.user = function user(req = new http.IncomingMessage(), res = new http.Se
                     }
                     break;
                 case 'DELETE':
-                    var filePath = `./users/${userSession.user}/files/${path.join('/')}`
+                    var filePath = `${rootPath}/users/${userSession.user}/files/${path.join('/')}`
                     if (fs.existsSync(filePath) && !fs.lstatSync(filePath).isDirectory()) {
                         fs.unlinkSync(filePath)
                         fs.existsSync(filePath) && fs.lstatSync(filePath).isDirectory()
@@ -155,7 +158,7 @@ exports.user = function user(req = new http.IncomingMessage(), res = new http.Se
                     res.end()
                     break;
                 case 'GET':
-                    var filePath = `./users/${userSession.user}/files/${path.join('/')}`
+                    var filePath = `${rootPath}/users/${userSession.user}/files/${path.join('/')}`
                     if (fs.existsSync(filePath)) {
                         if (fs.lstatSync(filePath).isDirectory()) {
                             res.writeHead(200, {
@@ -194,17 +197,17 @@ exports.user = function user(req = new http.IncomingMessage(), res = new http.Se
             }
             break;
         case 'set':
-            path.splice(0,1)
+            path.splice(0, 1)
             if (req.method != 'POST') return res.end()
             if (
-                req.headers["type"]=="file" &&
-                fs.existsSync(`./users/${userSession.user}/user/${path.join('/')}`)
-                ) {
-                fs.writeFileSync(`./users/${userSession.user}/user/${path.join('/')}`,'')
-                req.on('data',(data)=>{
-                    fs.appendFileSync(`./users/${userSession.user}/user/${path.join('/')}`,data)
+                req.headers["type"] == "file" &&
+                fs.existsSync(`${rootPath}/users/${userSession.user}/user/${path.join('/')}`)
+            ) {
+                fs.writeFileSync(`${rootPath}/users/${userSession.user}/user/${path.join('/')}`, '')
+                req.on('data', (data) => {
+                    fs.appendFileSync(`${rootPath}/users/${userSession.user}/user/${path.join('/')}`, data)
                 })
-            } else if (req.headers["type"]=="string") {
+            } else if (req.headers["type"] == "string") {
                 req.on('data', (d) => {
                     var data = JSON.parse(d), user = userdb.find(user => user.id = userSession.user)
                     Object.getOwnPropertyNames(data).forEach((v) => {
@@ -212,7 +215,7 @@ exports.user = function user(req = new http.IncomingMessage(), res = new http.Se
                             user[v] = data[v]
                         }
                     })
-                    fs.writeFileSync(`./users/${userSession.user}/user.json`, JSON.stringify(user))
+                    fs.writeFileSync(`${rootPath}/users/${userSession.user}/user.json`, JSON.stringify(user))
                 })
             }
             req.on('end', () => {
@@ -220,7 +223,7 @@ exports.user = function user(req = new http.IncomingMessage(), res = new http.Se
             })
             break;
         default:
-            res.write(fs.readFileSync(`./users/${userSession.user}/user.json`))
+            res.write(fs.readFileSync(`${rootPath}/users/${userSession.user}/user.json`))
             res.end()
             break;
     }

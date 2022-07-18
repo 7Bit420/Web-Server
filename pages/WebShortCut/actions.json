@@ -1,0 +1,51 @@
+[
+    {
+        "url": "https://www.google.com",
+        "description": "wtf you think it does",
+        "name": "Google",
+        "type": "redirect",
+        "icon": "https://www.google.com/images/branding/googleg/1x/googleg_standard_color_128dp.png"
+    },
+    {
+        "url": "https://developer.mozilla.org/en-US/",
+        "description": "A helpful guide to codeing and the internet",
+        "name": "Moz Docs",
+        "type": "redirect",
+        "icon": "https://developer.mozilla.org/favicon-48x48.cbbd161b.png"
+    },
+    {
+        "url": "https://www.icloud.com/",
+        "description": "ICloud Services",
+        "name": "ICloud",
+        "type": "redirect",
+        "icon": "https://www.icloud.com/system/cloudos2/current/static/apple-touch-icon.png"
+    },
+    {
+        "url": "https://www.scotch.vic.edu.au/",
+        "description": "school homepage",
+        "name": "Scotch Home",
+        "type": "redirect",
+        "icon": "https://www.scotch.vic.edu.au/assets/favicon.ico"
+    },
+    {
+        "url": "https://www.youtube.com/",
+        "description": "Youtube",
+        "name": "Youtube",
+        "type": "redirect",
+        "icon": "https://www.youtube.com/s/desktop/04fe8437/img/favicon_144x144.png"
+    },
+    {
+        "url": "https://scotch.instructure.com/",
+        "description": "Canvas LMS Page",
+        "name": "Canvas",
+        "type": "redirect",
+        "icon": "https://du11hjcvx0uqb.cloudfront.net/dist/images/favicon-e10d657a73.ico"
+    },
+    {
+        "url": "https://localhost/WebShortCut/scripts/hello.js",
+        "name": "Say hello",
+        "description": "Says hello",
+        "type": "script",
+        "icon": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ4OgiqercY3mVJrUxB2lhLYEiKwh8rpCsuJQ&usqp=CAU"
+    }
+]

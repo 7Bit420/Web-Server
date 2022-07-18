@@ -1,0 +1,46 @@
+[
+    {
+        "ext": "js",
+        "mime": "text/javascript"
+    },
+    {
+        "ext": "html",
+        "mime": "text/html"
+    },
+    {
+        "ext": "css",
+        "mime": "text/css"
+    },
+    {
+        "ext": "txt",
+        "mime": "text/plain"
+    },
+    {
+        "ext": "png",
+        "mime": "image/png"
+    },
+    {
+        "ext": "jpg",
+        "mime": "image/jpg"
+    },
+    {
+        "ext": "jpeg",
+        "mime": "image/jpeg"
+    },
+    {
+        "ext": "mp3",
+        "mime": "audio/mp3"
+    },
+    {
+        "ext": "mp4",
+        "mime": "video/mp4"
+    },
+    {
+        "ext": "mjs",
+        "mime": "text/javascript"
+    },
+    {
+        "ext": "event",
+        "mime": "text/event-stream"
+    }
+]

@@ -1,6 +1,22 @@
 {
-    "port": 5000,
+    "port": 80,
     "redirects": [
-        { "path": "/", "location":"/home" }
-    ]
+        {
+            "path": "/",
+            "location": "/template"
+        },
+        {
+            "path": "/among",
+            "location": "https://c.tenor.com/gQV5VzHLWQIAAAAd/among-us-sus.gif"
+        },
+        {
+            "path": "/xd",
+            "location": "https://www.google.com/search?client=l+ratio&rls=en&q=l+ratio+xd+lol&ie=UTF-8&oe=UTF-8"
+        },
+        {
+            "path": "/info",
+            "location": "https://www.youtube.com/watch?v=Ns3YxbIhTRMn"
+        }
+    ],
+    "blacklist": []
 }

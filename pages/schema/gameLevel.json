@@ -1,0 +1,80 @@
+{
+    "id": "http://json-schema.org/draft-04/schema#",
+    "$schema": "http://json-schema.org/draft-04/schema#",
+    "description": "Core schema meta-schema",
+    "definitions": {
+        "simpleTypes": {
+            "enum": [
+                "array",
+                "boolean",
+                "integer",
+                "null",
+                "number",
+                "object",
+                "string"
+            ]
+        }
+    },
+    "type": "object",
+    "properties": {
+        "name": {
+            "type": "string"
+        },
+        "map": {
+            "type": "object",
+            "properties": {
+                "width": {
+                    "maximum": 32,
+                    "minimum": 1,
+                    "type": "integer"
+                },
+                "height": {
+                    "maximum": 32,
+                    "minimum": 1,
+                    "type": "integer"
+                },
+                "scale": {
+                    "type": "integer"
+                },
+                "tiles": {
+                    "type": "array",
+                    "items": {
+                        "type": "array",
+                        "items": {
+                            "type": "object",
+                            "properties": {
+                                "asset": {
+                                    "type": "string",
+                                    "enum": [
+                                        "./assets/brick/Brick1.png",
+                                        "./assets/brick/Brick2.png",
+                                        "./assets/brick/Brick3.png",
+                                        "./assets/brick/Brick4.png",
+                                        "./assets/brick/Brick5.png",
+                                        "./assets/brick/Brick6.png",
+                                        "./assets/brick/Brick7.png",
+                                        "./assets/brick/Brick8.png",
+                                        "./assets/brick/Brick9.png",
+                                        "./assets/brick/Brick10.png"
+                                    ]
+                                },
+                                "solid": {
+                                    "type": "boolean"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "dependencies": {
+        "exclusiveMaximum": [
+            "maximum"
+        ],
+        "exclusiveMinimum": [
+            "minimum"
+        ]
+    },
+    "default": {}
+}
